@@ -3,7 +3,7 @@ const app = require("./src/app");
 const { conn } = require("./src/database");
 
 conn
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log("Base de datos sincronizada correctamente.");
     app.listen(3001, () => {

@@ -1,14 +1,10 @@
-import { Link } from "react-router-dom";
+import WelcomeSign from "../welcomeSign/WelcomeSign";
+// import styles from "./Landing.module.css";
 
 const Landing = () => {
   return (
     <div>
-      <h1>LANDING VIEW</h1>
-      <div>
-        <Link to="/register">
-          <button>Registrarse</button>
-        </Link>
-      </div>
+      <WelcomeSign />
     </div>
   );
 };

@@ -1,7 +1,12 @@
 import styles from "./userRegister.module.css";
+import { Toaster, toast } from "sonner";
+import { BiCheck } from "react-icons/bi";
+import { createUser } from "../../services/userServices";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -14,8 +19,16 @@ const UserRegister = () => {
       [event.target.name]: event.target.value,
     });
   };
-  const postUserData = (event) => {
+
+  //FUNCION QUE REALIZA LA SOLICITUD HTTP
+  const postUserData = async (event) => {
     event.preventDefault();
+
+    try {
+      await createUser(userData);
+    } catch (error) {
+      console.error("Error al crear el usuario:", error.message);
+    }
 
     setUserData({
       name: "",
@@ -53,6 +66,8 @@ const UserRegister = () => {
         />
         <button className={styles.button}>SUBMIT</button>
       </form>
+
+      <Toaster />
     </div>
   );
 };
