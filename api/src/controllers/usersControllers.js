@@ -1,5 +1,15 @@
 const { userServices } = require("../services");
 
+const createUserDemo = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const response = await userServices.createUserInDB(email);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const postUser = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -40,6 +50,7 @@ const getSpecificUser = (req, res) => {
 };
 
 module.exports = {
+  createUserDemo,
   userLogin,
   postUser,
   getAllUsers,

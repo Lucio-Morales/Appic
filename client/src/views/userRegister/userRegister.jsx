@@ -1,7 +1,7 @@
 import styles from "./userRegister.module.css";
 import { Toaster, toast } from "sonner";
 import { BiCheck } from "react-icons/bi";
-import { createUser } from "../../services/userServices";
+// import { createUser } from "../../services/userServices";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

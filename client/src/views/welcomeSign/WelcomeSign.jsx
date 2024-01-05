@@ -1,21 +1,20 @@
-import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../loginButton/LoginButton";
+import Profile from "../profile/Profile";
+import LogoutButton from "../logoutButton/LogoutButton";
 
 const WelcomeSign = () => {
+  const { isAuthenticated } = useAuth0();
   return (
     <div>
-      <h1>Welcome to Appic</h1>
-      <p>
-        In this page, you can have a personal gallery to save all your moments
-        in photos.
-      </p>
-      <br />
-      <p>¿You want?</p>
-      <Link to="/register">
-        <button>Register</button>
-      </Link>
-      <Link to="/login">
-        <button>Login</button>
-      </Link>
+      {isAuthenticated ? (
+        <>
+          <Profile />
+          <LogoutButton />
+        </>
+      ) : (
+        <LoginButton />
+      )}
     </div>
   );
 };
