@@ -1,41 +1,29 @@
 const { User } = require("../database");
 
-const createUserInDB = async (email) => {
-  const validateUser = await User.findOne({ where: { email: email } });
-  if (validateUser) {
-    return { msg: "Este usuario ya existe en la base de datos" };
-  }
-  const newUser = await User.create({ email });
-  if (newUser) {
-    return { msg: "User creado con exito", newUser };
-  } else {
-    throw new Error("No se pudo crear el usuario");
-  }
-};
-
 const createUser = async (name, email, password) => {
+  if (!name || !email || !password) {
+    return { msg: "Datos de registro incompletos." };
+  }
+
+  const existingUser = await User.findOne({
+    where: { name: name, email: email },
+  });
+  if (existingUser) {
+    return { msg: `El usuario ${name} ya ha sido registrado.` };
+  }
+
   const newUser = await User.create({ name, email, password });
   if (newUser) {
-    return { msg: "User creado con exito", newUser };
-  } else {
-    throw new Error("No se pudo crear el usuario");
+    return { msg: `El usuario ${name} ha sido creado con exito.` };
   }
 };
 
-const login = async (email, password) => {
-  const user = await User.findOne({
-    where: { email: email, password: password },
-  });
+const getAllUsers = () => {};
 
-  if (!user) {
-    return { msg: "No existe el usuario." };
-  } else {
-    return { userId: user.id, name: user.name };
-  }
-};
+const getOneUser = () => {};
 
 module.exports = {
-  createUserInDB,
   createUser,
-  login,
+  getAllUsers,
+  getOneUser,
 };

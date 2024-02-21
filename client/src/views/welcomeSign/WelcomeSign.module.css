@@ -1,0 +1,32 @@
+/* WelcomeSign.module.css */
+
+/* Estilos para el contenedor principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Estilos para el perfil */
+#profile {
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para los botones de inicio de sesión y cierre de sesión */
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}

@@ -4,9 +4,9 @@ const { usersControllers } = require("../controllers");
 const usersRouter = Router();
 
 usersRouter
-  .post("/create", usersControllers.createUserDemo)
-  .post("/login", usersControllers.userLogin)
-  .get("/all", usersControllers.getAllUsers)
-  .get("/:userId", usersControllers.getSpecificUser);
+  .post("/create", usersControllers.postUser)
+  .post("/login", usersControllers.loginUser)
+  .get("/all", usersControllers.getUsers)
+  .get("/:userId", usersControllers.getUser);
 
 module.exports = usersRouter;
