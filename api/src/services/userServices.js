@@ -1,7 +1,10 @@
+const {User} = require("../db")
 
-
-const createNewUser = (msg) => {
-    return `El mensaje secreto es ${msg}`
+const createNewUser = async (username, email, password) => {
+   const newUser = await User.create({username,email, password})
+   if(newUser){
+    return {msg: `El usuario ${username} fue creado exitosamente`, newUser}
+}
 }
 
 module.exports ={
