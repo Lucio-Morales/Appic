@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form"
 
 const RegistrationForm = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm()
-    console.log(errors);
+    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+
     const onSubmit = handleSubmit((formData) => {
         console.log(formData);
     })
@@ -29,6 +29,21 @@ const RegistrationForm = () => {
                 })} />
                 {errors.name && <span>{errors.name.message}</span>}
 
+                {/* Fecha de nacimiento */}
+                <label htmlFor="date">Fecha de nacimiento</label>
+                <input type="date" {...register("date", {
+                    required: {
+                        value: true,
+                        message: "La fecha de nacimiento es requerida."
+                    },
+                    validate: (value) => {
+                        const fechaDeNacimiento = new Date(value);
+                        const fechaActual = new Date();
+                        const edad = fechaActual.getFullYear() - fechaDeNacimiento.getFullYear()
+                        return edad >= 18 || "Debes ser mayor de 18 años"
+                    },
+                })} />
+                {errors.date && <span>{errors.date.message}</span>}
                 {/* Email */}
                 <label htmlFor="email">Email</label>
                 <input type="text" placeholder="Email" {...register("email", {
@@ -50,15 +65,30 @@ const RegistrationForm = () => {
                         value: true,
                         message: "La contraseña es requerida."
                     },
+                    minLength: {
+                        value: 5,
+                        message: "La contraseña es demasiado corta."
+                    },
                     pattern: {
                         value: /[!@#$%^&*(),.?":{}|<>]/,
                         message: "La contraseña debe tener un caracter especial.",
                     }
                 })} />
                 {errors.password && <span>{errors.password.message}</span>}
-
-
+                <label htmlFor="confirmPassword">Confirm password</label>
+                <input type="password" placeholder="Confirm password" {...register("confirmPassword", {
+                    required: {
+                        value: true,
+                        message: "Confirme su contraseña por favor."
+                    },
+                    validate: value => value === watch("password") || "Las contraseñas no coinciden."
+                })} />
+                {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
                 <button>Submit</button>
+                <pre>
+                    {JSON.stringify(watch(), null, 2)}
+                </pre>
+
             </form>
         </div>
 
