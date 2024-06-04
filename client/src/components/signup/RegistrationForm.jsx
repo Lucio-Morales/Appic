@@ -1,11 +1,20 @@
 import { useForm } from "react-hook-form"
+import { postNewUser } from "../../utils/api";
 
 const RegistrationForm = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
 
-    const onSubmit = handleSubmit((formData) => {
-        console.log(formData);
+    const onSubmit = handleSubmit(async (formData) => {
+
+        try {
+            const result = await postNewUser(formData);
+            console.log('Usuario registrado exitosamente:', result);
+
+        } catch (error) {
+            console.error('Error registrando al usuario:', error);
+
+        }
     })
 
     return (
@@ -13,7 +22,7 @@ const RegistrationForm = () => {
             <form onSubmit={onSubmit}>
                 {/* Name */}
                 <label htmlFor="name">Name</label>
-                <input type="text" placeholder="Name" {...register("name", {
+                <input type="text" placeholder="Name" {...register("username", {
                     required: {
                         value: true,
                         message: "El nombre es requerido."
@@ -85,9 +94,7 @@ const RegistrationForm = () => {
                 })} />
                 {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
                 <button>Submit</button>
-                <pre>
-                    {JSON.stringify(watch(), null, 2)}
-                </pre>
+
 
             </form>
         </div>
