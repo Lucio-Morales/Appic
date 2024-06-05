@@ -1,35 +1,42 @@
 import { useForm } from "react-hook-form"
 import { useMutation } from "@tanstack/react-query"
 import { createNewUser } from "../../utils/api";
+import { useState } from "react";
 
 const RegistrationForm = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    //Estado para gestionar el estado de la solicitud POST
+    const [postLoading, setPostLoading] = useState(false)
 
+    //Hook para gestionar el formulario
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm()
+
+    //Configuracion para gestionar la solicitud POST
     const registerNewUser = useMutation({
         mutationFn: createNewUser,
-        onSuccess: () => {
-            console.log("Usuario creado con exito");
+        onSuccess: (data) => {
+            console.log("Usuario creado con exito", data);
+            reset()
+        },
+        onError: (error) => {
+            console.log("Error al intentar registrar el usuario.", error);
+        },
+        onMutate: () => {
+            setPostLoading(true)
+        },
+        onSettled: () => {
+            setPostLoading(false)
         }
     })
 
-    const onSubmit = handleSubmit((formData) => {
-
+    const onSubmit = (formData) => {
         registerNewUser.mutate(formData)
+    }
 
-        // try {
-        //     const serverResponse = await postNewUser(formData);
-        //     console.log('Usuario registrado exitosamente:', serverResponse);
-
-        // } catch (error) {
-        //     console.error('Error registrando al usuario:', error);
-
-        // }
-    })
 
     return (
         <div>
-            <form onSubmit={onSubmit}>
+            {!postLoading && (<form onSubmit={handleSubmit(onSubmit)}>
                 {/* Name */}
                 <label htmlFor="name">Name</label>
                 <input type="text" placeholder="Name" {...register("username", {
@@ -106,7 +113,9 @@ const RegistrationForm = () => {
                 <button>Submit</button>
 
 
-            </form>
+            </form>)}
+            {postLoading && <p>Loading...</p>}
+
         </div>
 
     )

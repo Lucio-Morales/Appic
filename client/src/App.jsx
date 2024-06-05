@@ -1,5 +1,6 @@
 import './App.css'
-import RegistrationForm from './components/signup/RegistrationForm'
+// import ImagesContainer from './components/imagesContainer/ImagesContainer'
+import RegistrationForm from './components/registrationForm/RegistrationForm'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
   return (
     <>
       <RegistrationForm />
+      {/* <ImagesContainer /> */}
     </>
   )
 }
