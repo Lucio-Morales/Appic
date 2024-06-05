@@ -1,20 +1,30 @@
 import { useForm } from "react-hook-form"
-import { postNewUser } from "../../utils/api";
+import { useMutation } from "@tanstack/react-query"
+import { createNewUser } from "../../utils/api";
 
 const RegistrationForm = () => {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
 
-    const onSubmit = handleSubmit(async (formData) => {
-
-        try {
-            const result = await postNewUser(formData);
-            console.log('Usuario registrado exitosamente:', result);
-
-        } catch (error) {
-            console.error('Error registrando al usuario:', error);
-
+    const registerNewUser = useMutation({
+        mutationFn: createNewUser,
+        onSuccess: () => {
+            console.log("Usuario creado con exito");
         }
+    })
+
+    const onSubmit = handleSubmit((formData) => {
+
+        registerNewUser.mutate(formData)
+
+        // try {
+        //     const serverResponse = await postNewUser(formData);
+        //     console.log('Usuario registrado exitosamente:', serverResponse);
+
+        // } catch (error) {
+        //     console.error('Error registrando al usuario:', error);
+
+        // }
     })
 
     return (
