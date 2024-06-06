@@ -22,13 +22,9 @@ export const createNewUser = async (data) => {
         body: JSON.stringify(data)
     });
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Network response was not ok');
       }
-
-      const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-  // Esperar 3 segundos antes de retornar la respuesta
-     await delay(3000);
     
       return response.json();
 }

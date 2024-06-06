@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { useMutation } from "@tanstack/react-query"
 import { createNewUser } from "../../utils/api";
 import { useState } from "react";
+import styles from "./registrationForm.module.css"
 
 const RegistrationForm = () => {
 
@@ -35,8 +36,8 @@ const RegistrationForm = () => {
 
 
     return (
-        <div>
-            {!postLoading && (<form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.formContainer}>
+            {!postLoading && (<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 {/* Name */}
                 <label htmlFor="name">Name</label>
                 <input type="text" placeholder="Name" {...register("username", {
