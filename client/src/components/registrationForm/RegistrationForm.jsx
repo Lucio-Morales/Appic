@@ -20,7 +20,7 @@ const RegistrationForm = () => {
             reset()
         },
         onError: (error) => {
-            console.log("Error al intentar registrar el usuario.", error);
+            console.log(error);
         },
         onMutate: () => {
             setPostLoading(true)
@@ -40,7 +40,7 @@ const RegistrationForm = () => {
             {!postLoading && (<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 {/* Name */}
                 <label htmlFor="name">Name</label>
-                <input type="text" placeholder="Name" {...register("username", {
+                <input type="text" placeholder="Name" {...register("name", {
                     required: {
                         value: true,
                         message: "El nombre es requerido."
@@ -56,7 +56,7 @@ const RegistrationForm = () => {
                 })} />
                 {errors.name && <span>{errors.name.message}</span>}
 
-                {/* Fecha de nacimiento */}
+                {/* DATE
                 <label htmlFor="date">Fecha de nacimiento</label>
                 <input type="date" {...register("date", {
                     required: {
@@ -70,8 +70,9 @@ const RegistrationForm = () => {
                         return edad >= 18 || "Debes ser mayor de 18 años"
                     },
                 })} />
-                {errors.date && <span>{errors.date.message}</span>}
-                {/* Email */}
+                {errors.date && <span>{errors.date.message}</span>} */}
+
+                {/* EMAIL */}
                 <label htmlFor="email">Email</label>
                 <input type="text" placeholder="Email" {...register("email", {
                     required: {

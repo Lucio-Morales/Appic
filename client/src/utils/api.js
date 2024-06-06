@@ -13,18 +13,20 @@
 
 
 //CON FETCH
-export const createNewUser = async (data) => {
+export const createNewUser = async (formData) => {
     const response = await fetch("http://localhost:3001/user/post", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
           },
-        body: JSON.stringify(data)
+        body: JSON.stringify(formData)
     });
+    
+    //Si la respuesta del servidor es negativa, lanzo un error con el mensaje de error que recibo del mismo.
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Network response was not ok');
+      throw new Error(errorData.error || 'Network response was not ok');
       }
-    
+    //Si todo salio bien, devuelvo la respuesta de exito.
       return response.json();
 }
