@@ -7,9 +7,9 @@ const createNewUser = async (name, email, password) => {
     //Si el email esta en uso:
     if(emailInUse) {
        //Retorno un error.
-        throw new Error(`El correo electrónico ${email} ya está en uso.`);
+        throw new Error(`Correo electronico invalido.`);
         }
-    //Si el email no estaba en uso: 
+    //Si el email no estaba en uso:  
     //1.Hasheo la contraseña
     const hashedPassword = await bcrypt.hash(password, 10)
     console.log(hashedPassword);

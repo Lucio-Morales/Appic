@@ -1,8 +1,10 @@
-import { useForm } from "react-hook-form"
-import { useMutation } from "@tanstack/react-query"
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import { createNewUser } from "../../utils/api";
 import { useState } from "react";
-import styles from "./registrationForm.module.css"
+import { Toaster, toast } from "sonner"
+import { VscError } from "react-icons/vsc"
+import styles from "./registrationForm.module.css";
 
 const RegistrationForm = () => {
 
@@ -21,6 +23,10 @@ const RegistrationForm = () => {
         },
         onError: (error) => {
             console.log(error);
+            toast(error, {
+                description: "El correo electronico ya esta en uso.",
+                icon: <VscError style={{ color: "red", fontSize: "1.5rem" }} />
+            })
         },
         onMutate: () => {
             setPostLoading(true)
@@ -117,7 +123,7 @@ const RegistrationForm = () => {
 
             </form>)}
             {postLoading && <p>Loading...</p>}
-
+            <Toaster />
         </div>
 
     )
