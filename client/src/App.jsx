@@ -1,14 +1,17 @@
-import './App.css'
-// import ImagesContainer from './components/imagesContainer/ImagesContainer'
+import { Routes, Route } from "react-router-dom";
 import RegistrationForm from './components/registrationForm/RegistrationForm'
+import LoginForm from "./components/loginForm/LoginForm";
+import './App.css'
 
 function App() {
 
 
   return (
     <>
-      <RegistrationForm />
-      {/* <ImagesContainer /> */}
+      <Routes>
+        <Route path="/" element={<RegistrationForm />} />
+        <Route path="/login" element={<LoginForm />} />
+      </Routes>
     </>
   )
 }

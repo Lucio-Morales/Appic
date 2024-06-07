@@ -1,7 +1,7 @@
 const app = require("./src/app"); 
 const { conn } = require("./src/db");
 
-conn
+conn 
   .sync({ force: false })
   .then(() => {
     console.log("Base de datos sincronizada correctamente.");

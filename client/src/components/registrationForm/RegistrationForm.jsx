@@ -1,49 +1,49 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query";
 import { createNewUser } from "../../utils/api";
-import { useState } from "react";
 import { Toaster, toast } from "sonner"
 import { VscError } from "react-icons/vsc"
 import styles from "./registrationForm.module.css";
 
 const RegistrationForm = () => {
 
-    //Estado para gestionar el estado de la solicitud POST
-    const [postLoading, setPostLoading] = useState(false)
-
+    const navigate = useNavigate()
     //Hook para gestionar el formulario
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm()
 
     //Configuracion para gestionar la solicitud POST
     const registerNewUser = useMutation({
+        //Funcion que ejecuta la mutacion:
         mutationFn: createNewUser,
-        onSuccess: (data) => {
-            console.log("Usuario creado con exito", data);
+
+        //Funcion que gestiona caso exitoso:
+        onSuccess: () => {
             reset()
+            navigate("/login")
+            // console.log("Usuario creado con exito", data);
+            // reset()
         },
+
+        //Funcion que gestiona caso de error:
         onError: (error) => {
-            console.log(error);
+            //Funcion que muestra el modal de error:
             toast(error, {
                 description: "El correo electronico ya esta en uso.",
                 icon: <VscError style={{ color: "red", fontSize: "1.5rem" }} />
             })
         },
-        onMutate: () => {
-            setPostLoading(true)
-        },
-        onSettled: () => {
-            setPostLoading(false)
-        }
     })
 
     const onSubmit = (formData) => {
+        //Mutate: metodo que ejecuta la mutacion.
+        //Podemos pasarle un argumento que va a ser recibido por mutationFn
         registerNewUser.mutate(formData)
     }
 
-
     return (
         <div className={styles.formContainer}>
-            {!postLoading && (<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            {!registerNewUser.isPending && (<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 {/* Name */}
                 <label htmlFor="name">Name</label>
                 <input type="text" placeholder="Name" {...register("name", {
@@ -122,7 +122,7 @@ const RegistrationForm = () => {
 
 
             </form>)}
-            {postLoading && <p>Loading...</p>}
+            {registerNewUser.isPending && <p>Loading...</p>}
             <Toaster />
         </div>
 
