@@ -23,7 +23,32 @@ const createNewUser = async (name, email, password) => {
         }
 }
 
+const validateLogin = async (email, password) => {
+    //Validar si las credenciales del usuario que intenta loguear coinciden con el registro en la DB
 
-module.exports ={
-    createNewUser
+    //1-Valido que el usuario exista mediante su email:
+    const searchUser = await User.findOne({where: {email:email}});
+
+    //Si el usuario existe:
+    if(searchUser){
+        //Comparo las contraseñas:
+        const correctPassword = await bcrypt.compare(password, searchUser.password)
+
+        //Si la contraseña es correcta retorno un objeto con info:
+        if(correctPassword) {
+            return {
+                userEmail: true,
+                userPassword: true,
+                access: true
+            }
+        } 
+        throw new Error("Contraseña incorrecta.")
+    }
+    throw new Error("Email invalido. El usuario no esta registrado.")
+}
+
+
+module.exports = {
+    createNewUser,
+    validateLogin
 }

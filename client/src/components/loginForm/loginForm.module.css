@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-.form {
+form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -18,19 +18,10 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-}
-
-label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 14px;
-    color: #333333;
 }
 
 input[type="text"],
-input[type="password"],
-input[type="date"] {
+input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -41,17 +32,10 @@ input[type="date"] {
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="date"]:focus {
+input[type="password"]:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-span {
-    color: red;
-    font-size: 12px;
-    margin-bottom: 10px;
 }
 
 button {
@@ -67,10 +51,4 @@ button {
 
 button:hover {
     background-color: #0056b3;
-}
-
-p {
-    font-size: 16px;
-    color: #666;
-    text-align: center;
 }

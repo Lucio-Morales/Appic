@@ -21,8 +21,6 @@ const RegistrationForm = () => {
         onSuccess: () => {
             reset()
             navigate("/login")
-            // console.log("Usuario creado con exito", data);
-            // reset()
         },
 
         //Funcion que gestiona caso de error:
