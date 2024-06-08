@@ -43,7 +43,7 @@ const RegistrationForm = () => {
         <div className={styles.formContainer}>
             {!registerNewUser.isPending && (<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 {/* Name */}
-                <label htmlFor="name">Name</label>
+                {/* <label htmlFor="name">Name</label> */}
                 <input type="text" placeholder="Name" {...register("name", {
                     required: {
                         value: true,
@@ -77,7 +77,7 @@ const RegistrationForm = () => {
                 {errors.date && <span>{errors.date.message}</span>} */}
 
                 {/* EMAIL */}
-                <label htmlFor="email">Email</label>
+                {/* <label htmlFor="email">Email</label> */}
                 <input type="text" placeholder="Email" {...register("email", {
                     required: {
                         value: true,
@@ -91,7 +91,7 @@ const RegistrationForm = () => {
                 {errors.email && <span>{errors.email.message}</span>}
 
                 {/* Password */}
-                <label htmlFor="password">Password</label>
+                {/* <label htmlFor="password">Password</label> */}
                 <input type="password" placeholder="Password" {...register("password", {
                     required: {
                         value: true,
@@ -107,7 +107,7 @@ const RegistrationForm = () => {
                     }
                 })} />
                 {errors.password && <span>{errors.password.message}</span>}
-                <label htmlFor="confirmPassword">Confirm password</label>
+                {/* <label htmlFor="confirmPassword">Confirm password</label> */}
                 <input type="password" placeholder="Confirm password" {...register("confirmPassword", {
                     required: {
                         value: true,
