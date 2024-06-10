@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query";
 import { createNewUser } from "../../utils/api";
 import { Toaster, toast } from "sonner"
@@ -119,6 +119,13 @@ const RegistrationForm = () => {
                 <button>Submit</button>
 
 
+                <div>
+                    <p>Ya tienes una cuenta?
+                        <Link to="/login">
+                            <a>Login</a>
+                        </Link>
+                    </p>
+                </div>
             </form>)}
             {registerNewUser.isPending && <p>Loading...</p>}
             <Toaster />

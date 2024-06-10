@@ -3,7 +3,7 @@
 const HeaderProfile = () => {
     return (
         <div>
-            <h4>Header del profile</h4>
+            <h2>Header del profile</h2>
         </div>
     )
 };

@@ -32,20 +32,52 @@ export const createNewUser = async (formData) => {
 }
 
 //FUNCION QUE REALIZA LA SOLICITUD POST DE LOGIN
-export const loginUser = async (loginForm) => {
-  const response = await fetch("http://localhost:3001/user/login", {
+export const loginUser = (loginForm) => {
+  fetch("http://localhost:3001/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(loginForm)
+  }).then(response => {
+    if(response.ok) {
+      return response.json()
+    }
+      const errorData = response.json();
+      throw new Error(errorData.error || "Network response was not ok bro :/")
+  }).then(data => {
+    localStorage.setItem("authToken", data.token);
+    getProfileData()//Aca va la funcion que realiza la solicitud GET junto con el token para obtener los datos del perfil 
   })
 
-  if(!response.ok){
-    const errorData = await response.json();
-    throw new Error(errorData.error || "Network response was not ok bro :/")
-  }
+  // if(!response.ok){
+  //   const errorData = await response.json();
+  //   throw new Error(errorData.error || "Network response was not ok bro :/")
+  // }
 
-  return response.json()
+  // return response.json()
 }
 
+const getProfileData = () => {
+  const userToken = localStorage.getItem("authToken")
+
+  fetch("http://localhost:3001/user/profile", {
+    method: "GET",
+    headers: {
+      'Authorization': `Bearer ${userToken}`
+    }
+  })
+  .then(response => {
+    if(response.ok) {
+      return response.json()
+    }
+    throw new Error('No autorizado');
+  })
+  .then(data => {
+    data
+    // showProfile(data) funcion para mostrar perfil en la UI
+  })
+  .catch(error => {
+    console.log("Error al obtener perfil", error);
+  })
+}

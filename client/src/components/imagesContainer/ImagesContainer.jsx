@@ -1,12 +1,11 @@
+import ImageCard from "../imageCard/ImageCard"
 
 
 const ImagesContainer = () => {
     return (
         <div>
-
-            <p>Aca irian las imagenes del perfil del usuario</p>
-            <p>Aca irian las imagenes del perfil del usuario</p>
-            <p>Aca irian las imagenes del perfil del usuario</p>
+            <h3>ImagesContainer</h3>
+            <ImageCard />
         </div>
     )
 }
