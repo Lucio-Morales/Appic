@@ -3,9 +3,12 @@ import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { loginUser } from "../../utils/api";
 import styles from "./loginForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
+
+    const navigate = useNavigate()
 
     //Hook para gestionar el formulario
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
@@ -18,7 +21,10 @@ const LoginForm = () => {
         mutationFn: loginUser,
         onSuccess: (data) => {
             console.log(data);
-            reset()
+            if (data.access) {
+                reset()
+                navigate("/profile")
+            }
         },
         onError: (error) => {
             console.log(error);

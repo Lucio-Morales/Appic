@@ -25,7 +25,7 @@ export const createNewUser = async (formData) => {
     //Si la respuesta del servidor es negativa, lanzo un error con el mensaje de error que recibo del mismo.
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error || 'Network response was not ok bro');
+      throw new Error(errorData.error || 'Network response was not ok bro :/');
       }
     //Si todo salio bien, devuelvo la respuesta de exito.
       return response.json();
@@ -43,7 +43,7 @@ export const loginUser = async (loginForm) => {
 
   if(!response.ok){
     const errorData = await response.json();
-    throw new Error(errorData.error || "Network response was not ok bro")
+    throw new Error(errorData.error || "Network response was not ok bro :/")
   }
 
   return response.json()

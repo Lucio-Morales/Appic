@@ -2,7 +2,12 @@
 
 const ImagesContainer = () => {
     return (
-        <h1>ImagesContainer !</h1>
+        <div>
+
+            <p>Aca irian las imagenes del perfil del usuario</p>
+            <p>Aca irian las imagenes del perfil del usuario</p>
+            <p>Aca irian las imagenes del perfil del usuario</p>
+        </div>
     )
 }
 
