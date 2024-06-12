@@ -22,7 +22,17 @@ const loginUser = async (req, res) => {
   }
 }
 
+const userProfile = async (req, res) => {
+  try {
+    const serviceResponse = await userServices.getUserProfile()
+    res.status(200).json(serviceResponse)
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
 module.exports = {
     postUser,
-    loginUser
+    loginUser,
+    userProfile
 }

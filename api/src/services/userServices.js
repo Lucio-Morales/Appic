@@ -47,8 +47,13 @@ const validateLogin = async (email, password) => {
     throw new Error("Email invalido. El usuario no esta registrado.")
 }
 
+const getUserProfile = () => {
+    return "Soy el getProfileData del server jeje "
+}
+
 
 module.exports = {
     createNewUser,
-    validateLogin
+    validateLogin,
+    getUserProfile
 }

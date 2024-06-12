@@ -16,11 +16,7 @@ const LoginForm = () => {
     const loginUserMutation = useMutation({
         mutationFn: loginUser,
         onSuccess: (data) => {
-            console.log(data);
-            if (data.access) {
-                reset()
-                navigate("/profile")
-            }
+            console.log("mutation data:", data);
         },
         onError: (error) => {
             console.log(error);
