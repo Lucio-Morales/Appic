@@ -33,13 +33,12 @@ const loginUser = async (req, res) => {
         expiresIn: "1h",
       }
     );
-    // console.log("userToken:", userToken);
     res.cookie("access_token", userToken, {
       httpOnly: true,
-      sameSite: "strict", // Cambia a 'none' si necesario
-      maxAge: 1000 * 60 * 60, // 1 hora
+      secure: false,
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60,
     });
-
     res.status(200).json({ user, userToken });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -47,11 +46,14 @@ const loginUser = async (req, res) => {
 };
 
 const userProfile = async (req, res) => {
+  const cookieToken = req.cookies.access_token;
+  // console.log(cookieToken);
   try {
-    const serviceResponse = await userServices.getUserProfile();
-    res.status(200).json(serviceResponse);
+    const userProfileData = await userServices.validateUserToken(cookieToken);
+    res.status(200).json(userProfileData);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(`Error catch: ${error}`);
+    res.status(400).json({ erorr: error.message });
   }
 };
 

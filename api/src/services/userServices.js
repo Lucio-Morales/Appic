@@ -1,5 +1,8 @@
 const { User } = require("../db");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { SECRET_JWT_KEY } = process.env;
 
 const createNewUser = async (name, email, password) => {
   //Reviso que el email no este ocupado.
@@ -46,12 +49,20 @@ const validateLogin = async (email, password) => {
   throw new Error("Email invalido. El usuario no esta registrado.");
 };
 
-const getUserProfile = () => {
-  return "Soy el getProfileData del server jeje ";
+//FUNCION QUE RECIBE EL TOKEN DEL USUARIO QUE INTENTA LOGUEAR, LO DECODIFICA Y REALIZA LAS VALIDACIONES PERTINENTES PARA AUTORIZAR SU INGRESO.
+const validateUserToken = async (cookieToken) => {
+  if (!cookieToken) {
+    throw new Error("Unauthorized user.");
+  }
+  const decodedToken = jwt.verify(cookieToken, SECRET_JWT_KEY);
+
+  const user = await User.findOne({ where: { id: decodedToken.id } });
+  if (user) return user;
+  throw new Error("El usuario no existe bro");
 };
 
 module.exports = {
   createNewUser,
   validateLogin,
-  getUserProfile,
+  validateUserToken,
 };

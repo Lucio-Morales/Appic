@@ -52,30 +52,27 @@ export const loginUser = (loginForm) => {
     })
 
     .then((data) => {
-      return data;
+      console.log(data);
+      return getProfileData();
     });
 };
 
 //FUNCION QUE REALIZA LA SOLICITUD GET PARA OBTENER LOS DATOS DEL PERFIL DE USUARIO
-// const getProfileData = () => {
-//   const userToken = localStorage.getItem("authToken");
-
-//   return fetch("http://localhost:3001/user/profile", {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${userToken}`,
-//     },
-//   })
-//     .then((response) => {
-//       if (response.ok) {
-//         return response.json();
-//       }
-//       throw new Error("No autorizado");
-//     })
-//     .then((data) => {
-//       return data;
-//     })
-//     .catch((error) => {
-//       console.log("Error al obtener perfil", error);
-//     });
-// };
+const getProfileData = () => {
+  return fetch("http://localhost:3001/user/profile", {
+    method: "GET",
+    credentials: "include",
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("No autorizado");
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.log("Error al obtener perfil", error);
+    });
+};

@@ -15,8 +15,8 @@ app.use(
     credentials: true, // Permitir cookies y credenciales
   })
 );
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
 // app.options(
 //   "*",
 //   cors({
