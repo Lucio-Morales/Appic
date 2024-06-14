@@ -57,7 +57,12 @@ const validateUserToken = async (cookieToken) => {
   const decodedToken = jwt.verify(cookieToken, SECRET_JWT_KEY);
 
   const user = await User.findOne({ where: { id: decodedToken.id } });
-  if (user) return user;
+  if (user) {
+    return {
+      access: true,
+      user: { id: user.id, email: user.email, name: user.name },
+    };
+  }
   throw new Error("El usuario no existe bro");
 };
 
