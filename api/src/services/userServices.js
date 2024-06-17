@@ -44,9 +44,9 @@ const validateLogin = async (email, password) => {
         email: searchUser.email,
       };
     }
-    throw new Error("Contraseña incorrecta.");
+    throw new Error("Credenciales invalidas.");
   }
-  throw new Error("Email invalido. El usuario no esta registrado.");
+  throw new Error("Credenciales invalidas.");
 };
 
 //FUNCION QUE RECIBE EL TOKEN DEL USUARIO QUE INTENTA LOGUEAR, LO DECODIFICA Y REALIZA LAS VALIDACIONES PERTINENTES PARA AUTORIZAR SU INGRESO.
