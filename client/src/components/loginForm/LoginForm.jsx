@@ -3,8 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../utils/api";
 import styles from "./loginForm.module.css";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 
 const LoginForm = () => {
+  const { setUser } = useUser();
   const navigate = useNavigate();
 
   //Hook para gestionar el formulario
@@ -21,6 +23,7 @@ const LoginForm = () => {
     onSuccess: (data) => {
       if (data.access && data.user.id) {
         reset();
+        setUser(data.user);
         navigate("/profile");
       }
     },

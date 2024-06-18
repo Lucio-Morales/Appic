@@ -1,14 +1,17 @@
-import HeaderProfile from "../headerProfile/HeaderProfile"
-import ImagesContainer from "../imagesContainer/ImagesContainer"
-
+import { useUser } from "../../contexts/UserContext";
 
 const UserProfile = () => {
-    return (
-        <div>
-            <HeaderProfile />
-            <ImagesContainer />
-        </div>
-    )
-}
+  const { user } = useUser();
 
-export default UserProfile
+  if (!user) return <p>Loading data...</p>;
+
+  return (
+    <div>
+      <h3>Perfil de usuario: {user.name}</h3>
+      <p>ID: {user.id}</p>
+      <p>Email: {user.email}</p>
+    </div>
+  );
+};
+
+export default UserProfile;
